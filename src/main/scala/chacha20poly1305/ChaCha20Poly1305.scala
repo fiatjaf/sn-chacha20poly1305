@@ -3,7 +3,7 @@ import scala.scalanative.libc.string
 import scala.scalanative.unsafe._
 import scala.scalanative.unsigned._
 
-package object chacha20poly1305 {
+package object ChaCha20Poly1305 {
   val RFC_8439_TAG_SIZE = 16
   val RFC_8439_NONCE_SIZE = 12
   val RFC_8439_KEY_SIZE = 32
@@ -50,7 +50,7 @@ package object chacha20poly1305 {
           alloc[UByte](plaintextSize + RFC_8439_TAG_SIZE)
             .asInstanceOf[Ptr[UByte]]
 
-        val ciphertextSize = C
+        val ciphertextSize = C_ChaCha20Poly1305
           .portable_chacha20_poly1305_encrypt(
             ciphertextPtr,
             keyPtr,
@@ -119,7 +119,7 @@ package object chacha20poly1305 {
         val plaintextPtr = alloc[UByte](ciphertextSize - RFC_8439_TAG_SIZE)
           .asInstanceOf[Ptr[UByte]]
 
-        val plaintextSize = C
+        val plaintextSize = C_ChaCha20Poly1305
           .portable_chacha20_poly1305_decrypt(
             plaintextPtr,
             keyPtr,
@@ -146,7 +146,7 @@ package object chacha20poly1305 {
   }
 
   @extern
-  object C {
+  object C_ChaCha20Poly1305 {
     def portable_chacha20_poly1305_encrypt(
         cipher_text: Ptr[UByte],
         key: Ptr[UByte],

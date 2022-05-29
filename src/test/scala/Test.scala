@@ -1,8 +1,10 @@
 import scala.scalanative.unsigned._
 import utest._
-import chacha20poly1305.{encrypt, decrypt}
+import ChaCha20Poly1305.{encrypt, decrypt}
+import ChaCha20.{xor}
+import Helpers._
 
-object ChaChaTests extends TestSuite {
+object Helpers {
   def bytes2hex(ba: Array[UByte]): String =
     ba.map(_.toHexString)
       .map(x =>
@@ -16,7 +18,35 @@ object ChaChaTests extends TestSuite {
       .sliding(2, 2)
       .toArray[String]
       .map(Integer.parseInt(_, 16).toByte.toUByte)
+}
 
+object ChaCha20Tests extends TestSuite {
+  val tests = Tests {
+    test("chachachaaa") {
+      bytes2hex(
+        xor(
+          hex2bytes(
+            "76b8e0ada0f13d90405d6ae55386bd28bdd219b8a08ded1aa836efcc8b770dc7da41597c5157488d7724e03fb8d84a376a43b8f41518a11cc387b669b2ee6586"
+          ),
+          Array.fill[UByte](32)(0.toUByte),
+          Array.fill[UByte](12)(0.toUByte)
+        )
+      ) ==> bytes2hex(
+        Array.fill[UByte](64)(0.toUByte)
+      )
+
+      bytes2hex(
+        xor(
+          Array.fill[UByte](64)(0.toUByte),
+          Array.fill[UByte](32)(0.toUByte),
+          Array.fill[UByte](12)(0.toUByte)
+        )
+      ) ==> "76b8e0ada0f13d90405d6ae55386bd28bdd219b8a08ded1aa836efcc8b770dc7da41597c5157488d7724e03fb8d84a376a43b8f41518a11cc387b669b2ee6586"
+    }
+  }
+}
+
+object ChaCha20Poly1305Tests extends TestSuite {
   val tests = Tests {
     test("test rfc8437 2.8.2") {
       val expected = bytes2hex(rfc8437_282.cipher)
