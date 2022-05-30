@@ -10,7 +10,7 @@ Installation
 ------------
 
 ```sbt
-libraryDependencies += "com.fiatjaf" %%% "sn-chacha20poly1305" % "0.2.0"
+libraryDependencies += "com.fiatjaf" %%% "sn-chacha20poly1305" % "0.2.1"
 ```
 
 Usage

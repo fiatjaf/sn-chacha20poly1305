@@ -3,7 +3,7 @@ enablePlugins(ScalaNativePlugin)
 scalaVersion        := "3.1.1"
 organization        := "com.fiatjaf"
 name                := "sn-chacha20poly1305"
-version             := "0.2.0"
+version             := "0.2.1"
 sonatypeProfileName := "com.fiatjaf"
 homepage            := Some(url("https://github.com/fiatjaf/sn-chacha20poly1305"))
 scmInfo             := Some(ScmInfo(url("https://github.com/fiatjaf/sn-chacha20poly1305"), "git@github.com:fiatjaf/sn-chacha20poly1305.git"))

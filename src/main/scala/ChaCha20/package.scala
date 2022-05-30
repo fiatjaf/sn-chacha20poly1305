@@ -3,7 +3,7 @@ import scala.scalanative.libc.string
 import scala.scalanative.unsafe._
 import scala.scalanative.unsigned._
 
-object ChaCha20 {
+package object ChaCha20 {
   val CHACHA20_KEY_SIZE = 32
   val CHACHA20_NONCE_SIZE = 12
 
